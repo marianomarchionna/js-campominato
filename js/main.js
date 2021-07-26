@@ -18,11 +18,20 @@ while (bombe.length < numeroBombe) {
     i++;
 }
 
-console.log(bombe);
-
 // In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
 // L’utente non può inserire più volte lo stesso numero.
+var numeriUtente = [];
+var ricercaNumeri = false;
 
+
+while (numeriUtente.length < (cento - numeroBombe)) {
+    do {  
+        var userNumber = parseInt(prompt('Inserisci un numero da 1 a 100'));
+    } while ((userNumber < 1) || (userNumber > cento) || (isNaN(userNumber)));
+
+    ricercaNumeri = isInArray(numeriUtente, userNumber);
+    numeriUtente.push(userNumber);
+}
 
 // Funzioni
 function randomNumber(min, max) {
