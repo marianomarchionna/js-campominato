@@ -29,10 +29,10 @@ while (numeriUtente.length < (cento - numeroBombe) && ricercaBomba == false) {
     ricercaNumeri = isInArray(numeriUtente, numero);
     ricercaBomba = isInArray(bombe, numero);
 
-    if (ricercaBomba == false){
-        numeriUtente.push(numero);
-    } else if (ricercaNumeri == true){
+    if (ricercaNumeri == true){
         alert('Inserisci un altro numero, questo è già stato inserito!');
+    } else if (ricercaBomba == false){
+        numeriUtente.push(numero);
     } else {
         alert('BOOOM! Hai colpito una mina, mi dispiace, hai perso!');
     }
@@ -43,6 +43,13 @@ if (numeriUtente.length == cento - numeroBombe){
     alert('Complimenti, hai vinto!');
 }
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
+console.log('Il tuo punteggio è: ' + numeriUtente.length);
+
+//posizione bombe
+console.log('Le bombe erano nelle posizioni: ');
+for(i = 0; i < bombe.length; i++ ){
+    console.log(bombe[i]);
+}
 
 // Funzioni
 function randomNumber(min, max) {
