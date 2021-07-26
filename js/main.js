@@ -1,12 +1,34 @@
+// BONUS
+// all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
+// con difficoltà 0 => tra 1 e 100
+// con difficoltà 1 => tra 1 e 80
+// con difficoltà 2 => tra 1 e 50
+
+
+do{
+    var difficolta = parseInt(prompt('Scegli il livello di difficoltà: 0 = facile, 1 = intermedio, 2 = difficile'));
+}while (difficolta > 2 || isNaN(difficolta));
+
+switch(difficolta){
+    case 0:
+        var range = 100;
+        break;
+    case 1:
+        var range = 80;
+        break;
+    case 2:
+        var range = 50;
+        break;
+}
+ 
 // Il computer deve generare 16 numeri casuali (le nostre bombe) tra 1 e 100.
 // I numeri non possono essere duplicati.
 var bombe = [];
 const numeroBombe = 16;
-const cento = 100;
 var i = 0;
 
 while (bombe.length < numeroBombe) {
-    let bomba = randomNumber(1, cento);
+    let bomba = randomNumber(1, range);
     let ricerca = isInArray(bombe, bomba);
     if (ricerca == false) 
         bombe.push(bomba);
@@ -21,10 +43,10 @@ var numeriUtente = [];
 var ricercaNumeri = false;
 var ricercaBomba = false;
 
-while (numeriUtente.length < (cento - numeroBombe) && ricercaBomba == false) {
+while (numeriUtente.length < (range - numeroBombe) && ricercaBomba == false) {
     do {  
         var numero = parseInt(prompt('Inserisci un numero da 1 a 100'));
-    } while (numero < 1 || numero > cento || isNaN(numero));
+    } while (numero < 1 || numero > range || isNaN(numero));
 
     ricercaNumeri = isInArray(numeriUtente, numero);
     ricercaBomba = isInArray(bombe, numero);
@@ -39,7 +61,7 @@ while (numeriUtente.length < (cento - numeroBombe) && ricercaBomba == false) {
     i++;
 }
 
-if (numeriUtente.length == cento - numeroBombe){
+if (numeriUtente.length == range - numeroBombe){
     alert('Complimenti, hai vinto!');
 }
 // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
