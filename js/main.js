@@ -34,38 +34,45 @@ while (bombe.length < numeroBombe) {
         bombe.push(bomba);
     i++;
 }
+// EQUIVALENTE
+// while (bombe.length < numeroBombe) {
+//     let numeroGenerato = randomNumber(1, range);
+//     if(bombe.includes(numeroGenerato) == false){
+//         bombe.push(numeroGenerato);
+//     }
+// }
 
 // In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
 // L’utente non può inserire più volte lo stesso numero.
 // Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
 // La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
-var numeriUtente = [];
-var ricercaNumeri = false;
-var ricercaBomba = false;
+// var numeriUtente = [];
+// var ricercaNumeri = false;
+// var ricercaBomba = false;
 
-while (numeriUtente.length < (range - numeroBombe) && ricercaBomba == false) {
-    do {  
-        var numero = parseInt(prompt('Inserisci un numero da 1 a 100'));
-    } while (numero < 1 || numero > range || isNaN(numero));
+// while (numeriUtente.length < (range - numeroBombe) && ricercaBomba == false) {
+//     do {  
+//         var numero = parseInt(prompt('Inserisci un numero da 1 a ' + range));
+//     } while (numero < 1 || numero > range || isNaN(numero));
 
-    ricercaNumeri = isInArray(numeriUtente, numero);
-    ricercaBomba = isInArray(bombe, numero);
+//     ricercaNumeri = isInArray(numeriUtente, numero);
+//     ricercaBomba = isInArray(bombe, numero);
 
-    if (ricercaNumeri == true){
-        alert('Inserisci un altro numero, questo è già stato inserito!');
-    } else if (ricercaBomba == false){
-        numeriUtente.push(numero);
-    } else {
-        alert('BOOOM! Hai colpito una mina, mi dispiace, hai perso!');
-    }
-    i++;
-}
+//     if (ricercaNumeri == true){
+//         alert('Inserisci un altro numero, questo è già stato inserito!');
+//     } else if (ricercaBomba == false){
+//         numeriUtente.push(numero);
+//     } else {
+//         alert('BOOOM! Hai colpito una mina, mi dispiace, hai perso!');
+//     }
+//     i++;
+// }
 
-if (numeriUtente.length == range - numeroBombe){
-    alert('Complimenti, hai vinto!');
-}
-// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-console.log('Il tuo punteggio è: ' + numeriUtente.length);
+// if (numeriUtente.length == range - numeroBombe){
+//     alert('Complimenti, hai vinto!');
+// }
+// // Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
+// console.log('Il tuo punteggio è: ' + numeriUtente.length);
 
 //posizione bombe
 console.log('Le bombe erano nelle posizioni: ');
@@ -90,3 +97,33 @@ function isInArray(array, element) {
     }
     return result;
 }
+
+function creaCampo(celle) {
+    for(let i = 1; i <= celle; i++){
+        let cella = `
+        <div data-cella="${i}" class="cella"></div>
+        `;
+        let templateCella = document.createElement('DIV');
+        templateCella.classList.add("quadrato");
+        templateCella.innerHTML = cella;
+        document.getElementById('campo').appendChild(templateCella);
+    }
+}
+
+document.getElementById('campo').addEventListener('click',
+    function(e) { // e = event 
+        let element = document.querySelectorAll("[data-cella='" + e.target.dataset.cella + "']");
+        ricercaBomba = isInArray(bombe, e.target.dataset.cella);
+
+        if (ricercaBomba == true){
+            element[0].classList.add("red");
+            alert('BOOOM! Hai colpito una mina, mi dispiace, hai perso!');
+            element[0].innerHTML = '<i class="fas fa-bomb"></i>';
+        } else if (ricercaBomba == false){
+            element[0].classList.add("green");
+            element[0].innerHTML = '<i class="fas fa-sun"></i>';
+        }
+    }
+)
+
+creaCampo(range);
